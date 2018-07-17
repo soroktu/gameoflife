@@ -41,29 +41,31 @@ public class GameProcessor {
         return newBoard;
     }
 
-    private void reviveNeighbors(Cell cell, boolean[][] structureArray, boolean[][] revivedElements,
+    private void reviveNeighbors(Cell cell, boolean[][] cellsArray, boolean[][] revivedElements,
                                  List<Cell> newElements) {
         int x = cell.getX();
         int y = cell.getY();
-        int edgeLength = structureArray.length;
+        int edgeLength = cellsArray.length;
         assert x >= 0 && x < edgeLength && y >= 0 && y < edgeLength;
 
-        reviveElement(x - 1, y - 1, structureArray, revivedElements, newElements);
-        reviveElement(x - 1, y, structureArray, revivedElements, newElements);
-        reviveElement(x - 1, y + 1, structureArray, revivedElements, newElements);
-        reviveElement(x, y - 1, structureArray, revivedElements, newElements);
-        reviveElement(x, y + 1, structureArray, revivedElements, newElements);
-        reviveElement(x + 1, y - 1, structureArray, revivedElements, newElements);
-        reviveElement(x + 1, y, structureArray, revivedElements, newElements);
-        reviveElement(x + 1, y + 1, structureArray, revivedElements, newElements);
+        for (int i = x-1; i <= x + 1; i++){
+            for (int j = y-1; j <= y + 1; j++) {
+                reviveElement(i, j, cellsArray, revivedElements, newElements);
+            }
+        }
     }
 
-    private void reviveElement(int x, int y, boolean[][] structureArray, boolean[][] revivedElements,
+    private void reviveElement(int x, int y, boolean[][] cellsArray, boolean[][] revivedElements,
                                List<Cell> newElements) {
-        int edgeLength = structureArray.length;
+        int edgeLength = cellsArray.length;
+        if (x >= edgeLength) { x = x % edgeLength; }
+        if (x < 0) { x = edgeLength + x; }
+
+        if (y >= edgeLength) { y = y % edgeLength; }
+        if (y < 0) { y = edgeLength + y; }
         if (x >= 0 && x < edgeLength && y >= 0 && y < edgeLength) {
             if (!revivedElements[x][y]) {
-                if (3 == getNeighborsNumber(x, y, structureArray)) {
+                if (3 == getNeighborsNumber(x, y, cellsArray)) {
                     revivedElements[x][y] = true;
                     newElements.add(new Cell(x, y));
                 }
@@ -71,60 +73,45 @@ public class GameProcessor {
         }
     }
 
-    private void markElementOnArray(int x, int y, boolean[][] structureArray) {
+    private void markElementOnArray(int x, int y, boolean[][] cellsArray) {
         try {
-            structureArray[x][y] = true;
+            cellsArray[x][y] = true;
         } catch (IndexOutOfBoundsException exception) {
             log.error("Improper cell on list.", exception.getMessage());
         }
     }
 
-    private boolean shouldSurvive(Cell element, int edgeLength, boolean[][] structureArray) {
-        int n = getNeighborsNumber(element.getX(), element.getY(), structureArray);
+    private boolean shouldSurvive(Cell element, int edgeLength, boolean[][] cellsArray) {
+        int n = getNeighborsNumber(element.getX(), element.getY(), cellsArray);
         if (2 == n || 3 == n) {
             return true;
         }
         return false;
     }
+    private boolean isLive(int x, int y, boolean[][] cellsArray) {
+        int edgeLength = cellsArray.length;
+        if (x >= edgeLength) { x = x % edgeLength; }
+        if (x < 0) { x = edgeLength + x; }
 
-    private int getNeighborsNumber(int x, int y, boolean[][] structureArray) {
+        if (y >= edgeLength) { y = y % edgeLength; }
+        if (y < 0) { y = edgeLength + y; }
+        return cellsArray[x][y];
+    }
+    private int getNeighborsNumber(int x, int y, boolean[][] cellsArray) {
 
-        int edgeLength = structureArray.length;
+        int edgeLength = cellsArray.length;
         assert x >= 0 && x < edgeLength && y >= 0 && y < edgeLength;
 
         int neighborsNumber = 0;
-
-        if (x > 0) {
-            if (structureArray[x - 1][y]) {
-                neighborsNumber++;
-            }
-            if (y > 0 && structureArray[x - 1][y - 1]) {
-                neighborsNumber++;
-            }
-            if (y < edgeLength - 1 && structureArray[x - 1][y + 1]) {
-                neighborsNumber++;
+        for (int i = x-1; i <= x + 1; i++){
+            for (int j = y-1; j <= y + 1; j++) {
+                if (isLive(i, j, cellsArray)) {
+                    neighborsNumber++;
+                }
             }
         }
-        if (y > 0) {
-            if (structureArray[x][y - 1]) {
-                neighborsNumber++;
-            }
-        }
-        if (y < edgeLength - 1) {
-            if (structureArray[x][y + 1]) {
-                neighborsNumber++;
-            }
-        }
-        if (x < edgeLength - 1) {
-            if (structureArray[x + 1][y]) {
-                neighborsNumber++;
-            }
-            if (y > 0 && structureArray[x + 1][y - 1]) {
-                neighborsNumber++;
-            }
-            if (y < edgeLength - 1 && structureArray[x + 1][y + 1]) {
-                neighborsNumber++;
-            }
+        if (isLive(x, y, cellsArray)) {
+            neighborsNumber--;
         }
         return neighborsNumber;
     }
