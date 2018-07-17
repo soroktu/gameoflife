@@ -8,7 +8,7 @@
 
     function initApp() {
         drawMap(EDGE_LENGTH);
-        paintStartingStructure();
+        paintStartingBoard();
         setupStartButton();
     }
 
@@ -36,7 +36,7 @@
         return classes;
     }
 
-    function paintStartingStructure() {
+    function paintStartingBoard() {
         paint(17, 17);
         paint(17, 18);
         paint(16, 18);
@@ -50,17 +50,17 @@
         $('.cell[x=' + x + '][y=' + y + ']').addClass('black');
     }
 
-    function getJsonFromPaintedElements() {
+    function getJsonFromPaintedLiveCells() {
         var jsonObject = {};
         jsonObject.edgeLength = EDGE_LENGTH;
-        jsonObject.elements = [];
+        jsonObject.liveCells = [];
 
-        var elements = $('.cell.black');
-        $.each(elements, function(index, element) {
+        var liveCells = $('.cell.black');
+        $.each(liveCells, function(index, cell) {
             var e = {};
-            e.x = parseInt($(element).attr('x'));
-            e.y = parseInt($(element).attr('y'));
-            jsonObject.elements.push(e);
+            e.x = parseInt($(cell).attr('x'));
+            e.y = parseInt($(cell).attr('y'));
+            jsonObject.liveCells.push(e);
         });
         return JSON.stringify(jsonObject);
     }
@@ -72,30 +72,30 @@
     }
 
     function sendAjaxRequest() {
-        var paintedElements = getJsonFromPaintedElements();
+        var paintedLiveCells = getJsonFromPaintedLiveCells();
         $.ajax({
             url : '/rest/gameoflife/calculate',
             type : 'post',
-            data : paintedElements,
+            data : paintedLiveCells,
             contentType: 'application/json; charset=utf-8',
             dataType : 'json',
             async : false,
-            success : function(recalculatedStructure) {
-                console.log("recalculatedStructure: " + recalculatedStructure, recalculatedStructure);
-                repaintStructure(recalculatedStructure);
+            success : function(recalculatedBoard) {
+                console.log("recalculatedBoard: " + recalculatedBoard, recalculatedBoard);
+                repaintBoard(recalculatedBoard);
                 setTimeout(sendAjaxRequest, 250);
             }
         });
     }
 
-    function repaintStructure(structure) {
+    function repaintBoard(board) {
         clearMap();
-        paintStructure(structure);
+        paintBoard(board);
     }
 
-    function paintStructure(structure) {
-        $.each(structure.elements, function(index, element) {
-            paint(element.x, element.y);
+    function paintBoard(board) {
+        $.each(board.liveCells, function(index, cell) {
+            paint(cell.x, cell.y);
         });
     }
 

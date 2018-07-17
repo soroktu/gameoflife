@@ -35,7 +35,8 @@ public class GameProcessor {
             reviveNeighbors(e, boardArray, revivedElements, newLiveCells);
         });
 
-        Board newBoard = new Board(edgeLength);
+        Board newBoard = new Board();
+        newBoard.setEdgeLength(edgeLength);
         newBoard.setLiveCells(newLiveCells);
         return newBoard;
     }

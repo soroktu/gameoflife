@@ -10,11 +10,11 @@ public class Board {
 
     private int edgeLength;
     private List<Cell> liveCells;
-    private boolean[][] cellsArray;
+//    private boolean[][] cellsArray;
 
-    public Board(int edgeLength) {
-        this.edgeLength = edgeLength;
-    }
+//    public Board(int edgeLength) {
+//        this.edgeLength = edgeLength;
+//    }
 
     public int getEdgeLength() {
         return edgeLength;
