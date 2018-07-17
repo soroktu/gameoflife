@@ -2,11 +2,12 @@ package un.develop.gameoflife.cell;
 
 import javax.persistence.Entity;
 
-@Entity
+
 public class Cell {
 
     private int x;
     private int y;
+    private boolean isLive;
 
     public Cell(int x, int y) {
         this.x = x;
@@ -29,6 +30,14 @@ public class Cell {
         this.y = y;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Cell))
+            return false;
+        if (obj == this)
+            return true;
+        Cell element = (Cell) obj;
 
-
+        return this.x == element.getX() && this.y == element.getY();
+    }
 }

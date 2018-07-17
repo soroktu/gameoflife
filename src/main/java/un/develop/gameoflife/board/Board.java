@@ -5,11 +5,12 @@ import un.develop.gameoflife.cell.Cell;
 import javax.persistence.Entity;
 import java.util.List;
 
-@Entity
+
 public class Board {
 
     private int edgeLength;
     private List<Cell> liveCells;
+    private boolean[][] cellsArray;
 
     public Board(int edgeLength) {
         this.edgeLength = edgeLength;
