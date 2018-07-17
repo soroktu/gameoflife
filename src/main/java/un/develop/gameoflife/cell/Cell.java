@@ -1,9 +1,15 @@
 package un.develop.gameoflife.cell;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-
+//@Entity
 public class Cell {
+
+//    @Id
+//    @GeneratedValue
+//    private Long id;
 
     private int x;
     private int y;

@@ -10,6 +10,7 @@
         drawMap(EDGE_LENGTH);
         paintStartingBoard();
         setupStartButton();
+        setupLoadButton();
     }
 
     function drawMap(edgeLength) {
@@ -74,11 +75,18 @@
 
     function setupStartButton() {
         $('input#start-button').bind('click', function() {
-            sendAjaxRequest();
+            sendCalculateAjaxRequest();
         })
     }
 
-    function sendAjaxRequest() {
+    function setupLoadButton() {
+        $('input#load-button').bind('click', function() {
+            sendLoadAjaxRequest();
+        })
+    }
+
+
+    function sendCalculateAjaxRequest() {
         var paintedLiveCells = getJsonFromPaintedLiveCells();
         $.ajax({
             url : '/rest/gameoflife/calculate',
@@ -90,11 +98,25 @@
             success : function(recalculatedBoard) {
                 console.log("recalculatedBoard: " + recalculatedBoard, recalculatedBoard);
                 repaintBoard(recalculatedBoard);
-                setTimeout(sendAjaxRequest, 250);
+                setTimeout(sendCalculateAjaxRequest, 250);
             }
         });
     }
 
+    function sendLoadAjaxRequest() {
+        $.ajax({
+            url : '/rest/gameoflife/load',
+            type : 'get',
+            contentType: 'application/json; charset=utf-8',
+            dataType : 'json',
+            async : false,
+            success : function(recalculatedBoard) {
+                console.log("recalculatedBoard: " + recalculatedBoard, recalculatedBoard);
+                repaintBoard(recalculatedBoard);
+                setTimeout(sendLoadAjaxRequest, 250);
+            }
+        });
+    }
     function repaintBoard(board) {
         clearMap();
         paintBoard(board);

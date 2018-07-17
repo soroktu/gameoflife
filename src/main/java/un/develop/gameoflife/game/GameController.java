@@ -21,5 +21,10 @@ public class GameController {
         return gameService.calculateBoardOnNextStep(board);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/load", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Board load(@RequestBody Board board) {
+        return gameService.loadBoardFromDB();
+    }
 
 }
