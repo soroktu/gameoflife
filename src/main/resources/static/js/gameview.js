@@ -45,14 +45,6 @@
         paint(37, 39);
         paint(36, 39);
         paint(35, 38);
-
-        // paint(17, 17);
-        // paint(17, 18);
-        // paint(16, 18);
-        // paint(16, 19);
-        // paint(18, 18);
-        // paint(18, 19);
-        // paint(17, 20);
     }
 
     function paint(x, y) {
