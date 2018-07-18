@@ -28,7 +28,6 @@ public class CellListConverter implements AttributeConverter<List<Cell>, String>
         } catch (JsonProcessingException e) {
             log.debug("convertToDatabaseColumn" + jsonString);
             log.error(e.getMessage());
-            e.printStackTrace();
         }
         return jsonString;
     }

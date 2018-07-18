@@ -7,7 +7,7 @@ To start app just checkout project and run
     
     gradlew bootRun
 
-After application starts you can open https://localhost:8080 in your browser
+After application starts you can open localhost:8080 in your browser
 
 There is several choices to define start field
 1. Set Matrix at gameview.js

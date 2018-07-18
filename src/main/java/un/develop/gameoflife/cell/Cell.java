@@ -9,6 +9,11 @@ public class Cell {
         super();
     }
 
+    public Cell(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public Cell(int x, int y, int torEdgeLength) {
         if (x >= torEdgeLength) { x = x % torEdgeLength; }
         if (x < 0) { x = torEdgeLength + x; }
