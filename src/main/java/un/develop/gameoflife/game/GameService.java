@@ -21,9 +21,6 @@ public class GameService {
     }
 
     public Board loadBoardFromDB() {
-        Board loadedBoard = boardRepository.findById(1L).get();
-        loadedBoard.getLiveCells().size();
-//        loadedBoard = boardRepository.findById(1L).get();
-        return loadedBoard;
+        return boardRepository.findById(1L).get();
     }
 }

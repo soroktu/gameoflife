@@ -10,8 +10,6 @@ import un.develop.gameoflife.cell.Cell;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Converter

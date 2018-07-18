@@ -8,9 +8,6 @@ import un.develop.gameoflife.board.BoardRepository;
 @SpringBootApplication
 public class GameOfLifeApplication {
 
-    @Autowired
-    BoardRepository boardRepository;
-
     public static void main(String[] args) {
         SpringApplication.run(GameOfLifeApplication.class, args);
     }

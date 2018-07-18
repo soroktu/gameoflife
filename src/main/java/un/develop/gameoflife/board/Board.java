@@ -3,7 +3,6 @@ package un.develop.gameoflife.board;
 import un.develop.gameoflife.cell.Cell;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
