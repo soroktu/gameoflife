@@ -22,8 +22,8 @@ public class GameController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/load", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Board load(@RequestBody Board board) {
+    @RequestMapping(value = "/load", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Board load() {
         return gameService.loadBoardFromDB();
     }
 

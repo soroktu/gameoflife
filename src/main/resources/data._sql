@@ -1,5 +1,0 @@
---insert into board (id, edge_length)
---values (1, 50);
-
---insert into cell (id, x, y)
---values

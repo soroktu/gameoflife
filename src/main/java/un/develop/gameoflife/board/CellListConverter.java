@@ -1,6 +1,7 @@
 package un.develop.gameoflife.board;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,11 +38,12 @@ public class CellListConverter implements AttributeConverter<List<Cell>, String>
     @Override
     public List<Cell> convertToEntityAttribute(String dbData) {
 
-        List<Cell> list = new ArrayList<Cell>();
+        List<Cell> list = null;
         try {
             log.debug("Start convertToEntityAttribute");
             // convert json to list of POJO
-            list = Arrays.asList(objectMapper.readValue(dbData, Cell[].class));
+            list = objectMapper.readValue(
+                    dbData, new TypeReference<List<Cell>>() { });
             log.debug("JsonDocumentsConverter.convertToDatabaseColumn" + list);
         } catch (IOException e) {
             log.error(e.getMessage());

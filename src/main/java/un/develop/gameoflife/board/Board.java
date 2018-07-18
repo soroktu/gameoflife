@@ -3,28 +3,38 @@ package un.develop.gameoflife.board;
 import un.develop.gameoflife.cell.Cell;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Board {
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Id
-    @GeneratedValue
-    private Long id;
+    private long id;
 
     private int edgeLength;
 
-//    @ElementCollection
     @Convert(converter = CellListConverter.class)
     private List<Cell> liveCells;
 //    private boolean[][] cellsArray;
 
-//    public Board(int edgeLength) {
-//        this.edgeLength = edgeLength;
-//    }
     public Board() {
         super();
-        this.id = 1L;
+    }
+
+    public Board(Long id, int edgeLength, List<Cell> liveCells) {
+        super();
+        this.id = id;
+        this.edgeLength = edgeLength;
+        this.liveCells = liveCells;
     }
 
     public int getEdgeLength() {

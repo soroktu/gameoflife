@@ -5,6 +5,7 @@
     });
 
     EDGE_LENGTH = 50;
+    BOARD_ID = 1;
 
     function initApp() {
         drawMap(EDGE_LENGTH);
@@ -60,6 +61,7 @@
 
     function getJsonFromPaintedLiveCells() {
         var jsonObject = {};
+        jsonObject.id = BOARD_ID;
         jsonObject.edgeLength = EDGE_LENGTH;
         jsonObject.liveCells = [];
 
@@ -113,7 +115,6 @@
             success : function(recalculatedBoard) {
                 console.log("recalculatedBoard: " + recalculatedBoard, recalculatedBoard);
                 repaintBoard(recalculatedBoard);
-                setTimeout(sendLoadAjaxRequest, 250);
             }
         });
     }

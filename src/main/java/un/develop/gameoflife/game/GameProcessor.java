@@ -36,6 +36,7 @@ public class GameProcessor {
         });
 
         Board newBoard = new Board();
+        newBoard.setId(1L);
         newBoard.setEdgeLength(edgeLength);
         newBoard.setLiveCells(newLiveCells);
         return newBoard;
