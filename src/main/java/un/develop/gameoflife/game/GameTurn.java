@@ -8,14 +8,14 @@ import un.develop.gameoflife.cell.Cell;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameTurn {
+class GameTurn {
     private final static Logger log = LoggerFactory.getLogger(GameProcessor.class);
 
-    private Board board;
-    private boolean[][] currentStepCells;
-    private boolean[][] nextStepCells;
+    private final Board board;
+    private final boolean[][] currentStepCells;
+    private final boolean[][] nextStepCells;
 
-    public GameTurn(Board board) {
+    GameTurn(Board board) {
         this.board = board;
         this.currentStepCells = new boolean[board.getEdgeLength()][board.getEdgeLength()];
         this.nextStepCells = new boolean[board.getEdgeLength()][board.getEdgeLength()];
@@ -56,10 +56,7 @@ public class GameTurn {
     }
     private boolean shouldSurvive(Cell cell) {
         int n = getNeighborsNumber(cell.getX(), cell.getY());
-        if (2 == n || 3 == n) {
-            return true;
-        }
-        return false;
+        return 2 == n || 3 == n;
     }
 
     private void reviveElement(int x, int y, List<Cell> newElements) {
@@ -84,7 +81,7 @@ public class GameTurn {
         }
     }
 
-    public Board makeBoardOnNextTurn() {
+    Board makeBoardOnNextTurn() {
         List<Cell> nextTurnCells = new ArrayList<>();
         board.getLiveCells().forEach(e -> markElementOnArray(e.getX(), e.getY()));
 

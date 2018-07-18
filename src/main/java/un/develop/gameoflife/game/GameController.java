@@ -12,8 +12,12 @@ import un.develop.gameoflife.board.Board;
 public class GameController {
     private final static Logger log = LoggerFactory.getLogger(GameController.class);
 
+    private final GameService gameService;
+
     @Autowired
-    GameService gameService;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/calculate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

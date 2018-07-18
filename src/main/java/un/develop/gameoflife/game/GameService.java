@@ -8,19 +8,27 @@ import un.develop.gameoflife.board.BoardRepository;
 @Service
 public class GameService {
 
-    @Autowired
-    GameProcessor gameProcessor;
+    private final GameProcessor gameProcessor;
+
+    private final BoardRepository boardRepository;
 
     @Autowired
-    BoardRepository boardRepository;
+    public GameService(GameProcessor gameProcessor, BoardRepository boardRepository) {
+        this.gameProcessor = gameProcessor;
+        this.boardRepository = boardRepository;
+    }
 
-    public Board calculateBoardOnNextStep(Board board) {
+    Board calculateBoardOnNextStep(Board board) {
         Board calculatedBoard = gameProcessor.execute(board);
         boardRepository.save(calculatedBoard);
         return calculatedBoard;
     }
 
-    public Board loadBoardFromDB() {
-        return boardRepository.findById(1L).get();
+    Board loadBoardFromDB() {
+        Board loadedBoard = null;
+        if (boardRepository.findById(1L).isPresent()) {
+            loadedBoard = boardRepository.findById(1L).get();
+        }
+        return loadedBoard;
     }
 }

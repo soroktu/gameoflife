@@ -21,13 +21,6 @@ public class Board {
         super();
     }
 
-    public Board(Long id, int edgeLength, List<Cell> liveCells) {
-        super();
-        this.id = id;
-        this.edgeLength = edgeLength;
-        this.liveCells = liveCells;
-    }
-
     public long getId() {
         return id;
     }
