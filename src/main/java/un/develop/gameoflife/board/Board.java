@@ -8,22 +8,14 @@ import java.util.List;
 @Entity
 public class Board {
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     @Id
     private long id;
 
     private int edgeLength;
 
+    @Lob
     @Convert(converter = CellListConverter.class)
     private List<Cell> liveCells;
-//    private boolean[][] cellsArray;
 
     public Board() {
         super();
@@ -34,6 +26,14 @@ public class Board {
         this.id = id;
         this.edgeLength = edgeLength;
         this.liveCells = liveCells;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getEdgeLength() {

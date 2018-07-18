@@ -15,6 +15,16 @@ public class Cell {
         this.y = y;
     }
 
+    public Cell(int x, int y, int torEdgeLength) {
+        if (x >= torEdgeLength) { x = x % torEdgeLength; }
+        if (x < 0) { x = torEdgeLength + x; }
+
+        if (y >= torEdgeLength) { y = y % torEdgeLength; }
+        if (y < 0) { y = torEdgeLength + y; }
+        this.x = x;
+        this.y = y;
+    }
+
     public int getX() {
         return x;
     }
